@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday Countdown 🌙</title>
+
+  <style>
+    /* 🌙 Background and Layout */
+    body {
+      margin: 0;
+      padding: 50px 0; /* adds space at top/bottom for scroll */
+      min-height: 100vh; /* allows full page + scroll */
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      align-items: flex-start; /* allow container to start from top */
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      color: #e0f7ff;
+      text-align: center;
+      overflow-x: hidden; /* only hide sideways scroll */
+    }
+
+    /* Container styling with glow */
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 60px 40px;
+      border-radius: 40px;
+      box-shadow: 0 0 30px rgba(0, 191, 255, 0.4), 0 0 60px rgba(0, 191, 255, 0.2);
+      width: 90%;
+      max-width: 400px;
+      animation: pulseGlow 4s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      from { box-shadow: 0 0 20px rgba(0, 191, 255, 0.3); }
+      to { box-shadow: 0 0 40px rgba(0, 191, 255, 0.8); }
+    }
+
+    /* ✨ Moonlight 3D Text Effect */
+    #heading {
+      font-size: 1.6em;
+      margin-bottom: 40px;
+      font-weight: bold;
+      color: #cceeff;
+      text-shadow:
+        0 0 5px #aeefff,
+        0 0 15px #88dfff,
+        0 0 30px #44ccff,
+        0 0 60px #00bfff;
+      transform: perspective(400px) rotateX(10deg);
+      letter-spacing: 2px;
+      animation: textGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes textGlow {
+      from { text-shadow: 0 0 5px #aeefff, 0 0 15px #44ccff; }
+      to { text-shadow: 0 0 20px #aeefff, 0 0 40px #00bfff; }
+    }
+
+    /* Countdown style with soft glow */
+    #countdown {
+      font-size: 2em;
+      font-weight: bold;
+      margin: 20px 0;
+      color: #bdeaff;
+      text-shadow: 0 0 10px #66d9ff, 0 0 20px #00bfff;
+    }
+
+    /* Wish text box */
+    .wish-box {
+      font-size: 1.1em;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px 25px;
+      border-radius: 15px;
+      margin-bottom: 40px;
+      box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+    }
+
+    /* Friend image */
+    .image-box img {
+      width: 100%;
+      border-radius: 20px;
+      border: 2px solid #cceeff;
+      box-shadow: 0 0 20px #00bfff, 0 0 40px #0077cc;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .image-box img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #aeefff, 0 0 60px #00bfff;
+    }
+
+    /* Fade-in for final message */
+    .fade {
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 id="heading">🌕 Advance Happy Birthday 🌕</h1>
+
+    <div class="countdown-box">
+      <p id="countdown">00:00:00</p>
+    </div>
+
+    <div class="wish-box">
+      <p id="wish">✨ Advance Happy Birthday My Amme ❤️ ✨</p>
+    </div>
+
+    <div class="image-box">
+      <!-- Replace friend.jpg with your actual image -->
+      <img src="friend.jpg" alt="Friend Photo" id="friend-img" />
+    </div>
+  </div>
+
+  <script>
+    // 🕒 Set your friend's birthday date here:
+    const birthdayDate = new Date("2026-10-18T00:00:00").getTime();
+
+    const countdownEl = document.getElementById("countdown");
+    const wishEl = document.getElementById("wish");
+    const headingEl = document.getElementById("heading");
+
+    const timer = setInterval(function () {
+      const now = new Date().getTime();
+      const distance = birthdayDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+      // 🎂 When countdown ends
+      if (distance < 0) {
+        clearInterval(timer);
+        countdownEl.style.display = "none";
+        wishEl.innerHTML = "Advance Happy Birthday Amme ❤️🌼";
+        headingEl.innerHTML = "🎂 Happy Birthday Thangapoove 🦋! 🎉";
+        wishEl.classList.add("fade");
+        headingEl.classList.add("fade");
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
+
